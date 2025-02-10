@@ -1,7 +1,7 @@
 # Assignment1
 
 ## Description
-This repository contains my solution for **Assignment 1**. The project demonstrates the use of multithreading for generating and sending POST requests in a load testing scenario.
+This repository contains my solution for **Assignment 1**. The project demonstrates the use of multithreading for generating and sending POST requests in a load-testing scenario.
 
 ## Features
 - Generates a set of events using a multithreaded approach.
@@ -16,6 +16,7 @@ Clone this repository to your local machine:
    ```bash
    git clone https://github.com/Crystal0GMY/Assignment1.git
    cd Assignment1
+   ```
 
 ## Configuration
 
@@ -27,7 +28,7 @@ The main class to run is MultithreadClient
 
 Start the program to initiate the load testing process.
 The program will generate events, send POST requests, and log the results to a CSV file.
-After the test completes, it will display key performance metrics.
+After the test is completed, it will display key performance metrics.
 
 ## Metrics
 
