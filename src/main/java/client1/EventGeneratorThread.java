@@ -6,10 +6,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class EventGeneratorThread implements Runnable{
   private static final BlockingQueue<SkierLiftRideEvent> eventQueue = new LinkedBlockingQueue<>(200000);
-  private final CountDownLatch latch;
 
-  public EventGeneratorThread(CountDownLatch latch) {
-    this.latch = latch;
+  public EventGeneratorThread() {
   }
 
   @Override
@@ -20,7 +18,6 @@ public class EventGeneratorThread implements Runnable{
       try {
         eventQueue.put(event);
         eventCount++;
-        latch.countDown();
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();  // Restore interrupt flag
         break;

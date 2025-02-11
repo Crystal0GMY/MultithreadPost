@@ -12,9 +12,7 @@ public class MultithreadClient {
   private static final AtomicInteger failedRequests = new AtomicInteger(0);
 
   public static void main(String[] args) throws InterruptedException, ExecutionException {
-    CountDownLatch latch = new CountDownLatch(TOTAL_REQUESTS);
-
-    Thread eventGeneratorThread = new Thread(new EventGeneratorThread(latch));
+    Thread eventGeneratorThread = new Thread(new EventGeneratorThread());
     eventGeneratorThread.start();
 
     ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
