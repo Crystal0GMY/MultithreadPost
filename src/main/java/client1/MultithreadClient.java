@@ -4,9 +4,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.*;
 
 public class MultithreadClient {
-  private static final String SERVER_URL = "http://52.42.156.220:8080/Assignment1_war";
+  private static final String SERVER_URL = "http://18.237.181.22:8080/Assignment1_war";
   private static final int TOTAL_REQUESTS = 200000;
-  private static final int INITIAL_THREADS = 200;
+  private static final int NUMBER_OF_THREADS = 200;
   private static final int REQUEST_PER_THREAD = 1000;
   private static final AtomicInteger successfulRequests = new AtomicInteger(0);
   private static final AtomicInteger failedRequests = new AtomicInteger(0);
@@ -17,12 +17,12 @@ public class MultithreadClient {
     Thread eventGeneratorThread = new Thread(new EventGeneratorThread(latch));
     eventGeneratorThread.start();
 
-    ExecutorService executorService = Executors.newFixedThreadPool(INITIAL_THREADS);
+    ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     List<Future<Void>> futures = new ArrayList<>();
 
     long startTime = System.currentTimeMillis();
 
-    for (int i = 0; i < INITIAL_THREADS; i++) {
+    for (int i = 0; i < NUMBER_OF_THREADS; i++) {
       HTTPClientThread clientThread = new HTTPClientThread(SERVER_URL, successfulRequests, failedRequests, REQUEST_PER_THREAD);
       futures.add(executorService.submit(clientThread));
     }
@@ -35,15 +35,11 @@ public class MultithreadClient {
 
     executorService.shutdown();
 
-    if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
-      executorService.shutdownNow();
-    }
-
     long endTime = System.currentTimeMillis();
     long wallTime = endTime - startTime;
 
     System.out.println("This is the Part 1 Output: ");
-    System.out.println("Number of Threads used: " + INITIAL_THREADS);
+    System.out.println("Number of Threads used: " + NUMBER_OF_THREADS);
     System.out.println("Total requests sent: " + TOTAL_REQUESTS);
     System.out.println("Successful requests: " + successfulRequests.get());
     System.out.println("Failed requests: " + failedRequests.get());
